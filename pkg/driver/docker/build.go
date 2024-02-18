@@ -119,6 +119,9 @@ func CreateBuildOptions(
 	// get build args and target
 	buildOptions.BuildArgs, buildOptions.Target = GetBuildArgsAndTarget(parsedConfig, extendedBuildInfo)
 
+	// get cli options
+	buildOptions.CliOpts = parsedConfig.Config.GetOptions()
+
 	// get extended build info
 	buildOptions.Dockerfile, err = RewriteDockerfile(dockerfileContent, extendedBuildInfo)
 	if err != nil {
@@ -283,6 +286,11 @@ func (d *dockerDriver) buildxBuild(ctx context.Context, writer io.Writer, platfo
 	// cache
 	for _, cacheFrom := range options.CacheFrom {
 		args = append(args, "--cache-from", cacheFrom)
+	}
+
+	// add additional build cli options
+	for _, opt := range options.CliOpts {
+		args = append(args, opt)
 	}
 
 	// context
