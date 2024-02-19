@@ -22,7 +22,7 @@ type Driver interface {
 	TargetArchitecture(ctx context.Context, workspaceId string) (string, error)
 
 	// DeleteDevContainer deletes the devcontainer
-	DeleteDevContainer(ctx context.Context, workspaceId string) error
+	DeleteDevContainer(ctx context.Context, workspaceId string, isRecreate bool) error
 
 	// StartDevContainer starts the devcontainer
 	StartDevContainer(ctx context.Context, workspaceId string) error

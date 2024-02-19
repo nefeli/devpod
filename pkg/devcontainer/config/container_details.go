@@ -14,10 +14,11 @@ type ImageDetailsConfig struct {
 }
 
 type ContainerDetails struct {
-	ID      string                 `json:"ID,omitempty"`
-	Created string                 `json:"Created,omitempty"`
-	State   ContainerDetailsState  `json:"State,omitempty"`
-	Config  ContainerDetailsConfig `json:"Config,omitempty"`
+	ID      string                  `json:"ID,omitempty"`
+	Created string                  `json:"Created,omitempty"`
+	State   ContainerDetailsState   `json:"State,omitempty"`
+	Config  ContainerDetailsConfig  `json:"Config,omitempty"`
+	Mounts  []ContainerDetailsMount `json:"Mounts,omitempty"`
 }
 
 type ContainerDetailsConfig struct {
@@ -36,4 +37,15 @@ type ContainerDetailsConfig struct {
 type ContainerDetailsState struct {
 	Status    string `json:"Status,omitempty"`
 	StartedAt string `json:"StartedAt,omitempty"`
+}
+
+type ContainerDetailsMount struct {
+	Type        string `json:"Type,omitempty"`
+	Name        string `json:"Name,omitempty"`
+	Source      string `json:"Source,omitempty"`
+	Destination string `json:"Destination,omitempty"`
+	Driver      string `json:"Driver,omitempty"`
+	Mode        string `json:"Mode,omitempty"`
+	RW          bool   `json:"RW,omitempty"`
+	Propagation string `json:"Propagation,omitempty"`
 }

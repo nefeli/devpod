@@ -40,7 +40,7 @@ type Runner interface {
 
 	Stop(ctx context.Context) error
 
-	Delete(ctx context.Context) error
+	Delete(ctx context.Context, isRecreate bool) error
 }
 
 func NewRunner(

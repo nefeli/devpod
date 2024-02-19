@@ -316,7 +316,7 @@ func (r *runner) startContainer(
 			return nil, errors.Wrap(err, "stop dev container")
 		}
 
-		if err := r.Driver.DeleteDevContainer(ctx, r.ID); err != nil {
+		if err := r.Driver.DeleteDevContainer(ctx, r.ID, options.Recreate); err != nil {
 			return nil, errors.Wrap(err, "delete dev container")
 		}
 	}

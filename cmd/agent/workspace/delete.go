@@ -85,7 +85,7 @@ func removeContainer(ctx context.Context, workspaceInfo *provider2.AgentWorkspac
 	if workspaceInfo.Workspace.Source.Container != "" {
 		log.Infof("Skipping container deletion, since it was not created by DevPod")
 	} else {
-		err = runner.Delete(ctx)
+		err = runner.Delete(ctx, false)
 		if err != nil {
 			return err
 		}

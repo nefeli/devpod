@@ -99,7 +99,7 @@ func (d *dockerDriver) PushDevContainer(ctx context.Context, image string) error
 	return nil
 }
 
-func (d *dockerDriver) DeleteDevContainer(ctx context.Context, workspaceId string) error {
+func (d *dockerDriver) DeleteDevContainer(ctx context.Context, workspaceId string, isRecreate bool) error {
 	container, err := d.FindDevContainer(ctx, workspaceId)
 	if err != nil {
 		return err
@@ -110,6 +110,17 @@ func (d *dockerDriver) DeleteDevContainer(ctx context.Context, workspaceId strin
 	err = d.Docker.Remove(ctx, container.ID)
 	if err != nil {
 		return err
+	}
+
+	// only delete volumes when we're not recreating this container
+	if !isRecreate {
+		for _, m := range container.Mounts {
+			if m.Type == "volume" {
+				if err := d.Docker.DeleteVolume(ctx, m.Name); err != nil {
+					return err
+				}
+			}
+		}
 	}
 
 	return nil

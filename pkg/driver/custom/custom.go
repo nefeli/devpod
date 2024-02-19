@@ -122,7 +122,10 @@ func (c *customDriver) TargetArchitecture(ctx context.Context, workspaceId strin
 }
 
 // DeleteDevContainer deletes the devcontainer
-func (c *customDriver) DeleteDevContainer(ctx context.Context, workspaceId string) error {
+func (c *customDriver) DeleteDevContainer(ctx context.Context, workspaceId string, isRecreate bool) error {
+	// TODO: delete volumes iff !isRecreate
+	_ = isRecreate
+
 	writer := c.log.Writer(logrus.InfoLevel, false)
 	defer writer.Close()
 
