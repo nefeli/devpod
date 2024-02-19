@@ -300,6 +300,9 @@ func (d *dockerDriver) RunDockerDevContainer(
 		}
 	}
 
+	// container name
+	args = append(args, "--name", workspaceId)
+
 	// runArgs
 	args = append(args, parsedConfig.RunArgs...)
 
