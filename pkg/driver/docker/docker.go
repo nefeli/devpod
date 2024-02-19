@@ -303,6 +303,10 @@ func (d *dockerDriver) RunDockerDevContainer(
 	// container name
 	args = append(args, "--name", workspaceId)
 
+	// hostname
+	idParts := strings.Split(workspaceId, "-")
+	args = append(args, "--hostname", strings.Join(idParts[:len(idParts)-2], "-"))
+
 	// runArgs
 	args = append(args, parsedConfig.RunArgs...)
 
